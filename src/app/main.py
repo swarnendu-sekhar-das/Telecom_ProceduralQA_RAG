@@ -2,7 +2,6 @@ import streamlit as st
 import os
 import sys
 
-# Ensure the src module is in the path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
 from src.llm.qa_engine import ProceduralQAEngine

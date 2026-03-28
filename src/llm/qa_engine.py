@@ -25,8 +25,8 @@ class ProceduralQAEngine:
         The retriever_pipeline argument is kept so main.py doesn't break, 
         but it is ignored. All retrieval happens in Colab now.
         """
-        # ⚠️ IMPORTANT: Update this with your active Ngrok URL from Colab
-        self.api_url = "https://unverbosely-ascocarpous-vickey.ngrok-free.dev/ask" 
+        # Update this with your active Ngrok URL from Colab
+        self.api_url = "https://mia-propertied-cristopher.ngrok-free.dev/ask"
         
     def query(self, query_str: str, filters: dict = None):
         """
