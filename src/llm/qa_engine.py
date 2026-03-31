@@ -16,16 +16,13 @@ class MockResponse:
 
 class ProceduralQAEngine:
     """
-    Acts as a bridge to the remote SecureNOC Colab API, completely 
-    replacing the local LlamaIndex/Groq pipeline.
+    Acts as a bridge to the remote NetRestore Colab API
     """
     
     def __init__(self, retriever_pipeline=None):
         """
-        The retriever_pipeline argument is kept so main.py doesn't break, 
-        but it is ignored. All retrieval happens in Colab now.
+        The retriever_pipeline argument is kept but all retrieval happens in Colab.
         """
-        # Update this with your active Ngrok URL from Colab
         self.api_url = "https://mia-propertied-cristopher.ngrok-free.dev/ask"
         
     def query(self, query_str: str, filters: dict = None):

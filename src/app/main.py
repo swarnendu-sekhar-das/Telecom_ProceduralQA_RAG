@@ -8,33 +8,39 @@ from src.llm.qa_engine import ProceduralQAEngine
 
 # Configure the Streamlit page
 st.set_page_config(
-    page_title="SecureNOC QA RAG",
+    page_title="NetRestore: Procedural QA RAG",
     page_icon="📡",
     layout="wide",
+    initial_sidebar_state="collapsed"
 )
 
-# Initialize the QA Engine (Now just an API Client)
+hide_streamlit_style = """
+    <style>
+        #MainMenu {visibility: hidden;}
+        footer {visibility: hidden;}
+        header {visibility: hidden;}
+    </style>
+"""
+
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
+# Initialize the QA Engine
 @st.cache_resource
 def load_qa_engine():
     return ProceduralQAEngine()
 
 # Header Information
-st.title("📡 SecureNOC: Procedural QA RAG")
+st.title("📡 NetRestore: Procedural QA RAG")
 st.markdown("""
-This system uses a decoupled Retrieval-Augmented Generation (RAG) pipeline to find and output exact Standard Operating Procedures (SOPs).
-All embeddings, hybrid retrieval, reranking, and LLM generation are served via a secure Colab API endpoint.
+NetRestore is a RAG-based system designed for telecom network restoration operations by retrieving precise restoration SOPs for outages, faults, and incidents using hybrid search and LLM reasoning, enabling faster and more reliable service recovery.
 """)
 
 qa_engine = load_qa_engine()
 
 st.divider()
 
-# Sidebar: Stripped down since GLiNER handles metadata filtering automatically
 st.sidebar.header("System Status")
-st.sidebar.success("Ready to connect to SecureNOC API")
-st.sidebar.markdown("""
-**Note:** Metadata pre-filtering (like Equipment Vendor or Severity) is now handled *automatically* by Zero-Shot NLP (GLiNER) directly from your prompt text.
-""")
+st.sidebar.success("Ready to connect to NetRestore API")
 
 # Initialize chat history
 if "messages" not in st.session_state:
@@ -63,9 +69,8 @@ if prompt := st.chat_input("Ask a procedural question (e.g., 'How do I fix a cor
         
     # Query Engine
     with st.chat_message("assistant"):
-        with st.spinner("Pinging SecureNOC API (Retrieving & Synthesizing)..."):
+        with st.spinner("Pinging NetRestore API (Retrieving & Synthesizing)..."):
             try:
-                # We no longer pass manual filters; the backend handles it.
                 response = qa_engine.query(prompt)
                 st.markdown(response.response)
                 
